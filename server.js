@@ -11,7 +11,7 @@ const https = require("https");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_MODEL = "gemini-3.6-flash-lite";
+const GEMINI_MODEL = "gemini-3.6-flash";
 
 // Middleware
 app.use(cors({ origin: "*" })); // Bisa dibatasi ke domain tertentu jika sudah deploy

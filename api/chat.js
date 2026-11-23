@@ -7,7 +7,7 @@
 const https = require("https");
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_MODEL = "gemini-3.6-flash-lite";
+const GEMINI_MODEL = "gemini-3.6-flash";
 
 module.exports = async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
