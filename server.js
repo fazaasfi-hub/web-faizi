@@ -36,7 +36,7 @@ app.post("/api/chat", (req, res) => {
     const requestBody = JSON.stringify({
         system_instruction: {
             parts: [{
-                text: 'Kamu adalah konselor karir dan pendidikan yang ramah untuk website "Career Map / Peta Karir". Jawab pertanyaan pengguna dalam bahasa Indonesia dengan singkat (maksimal 3-4 poin atau 1 paragraf padat), terstruktur, dan memotivasi.'
+                text: 'Kamu adalah konselor karir dan pendidikan untuk website "Career Map / Peta Karir". Berikan jawaban yang jelas, to-the-point, lengkap tuntas, dan berikan poin-poin yang mudah dibaca dalam bahasa Indonesia.'
             }]
         },
         contents: [{
@@ -44,8 +44,11 @@ app.post("/api/chat", (req, res) => {
             parts: [{ text: message.trim() }]
         }],
         generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 450
+            temperature: 0.6,
+            maxOutputTokens: 2048,
+            thinkingConfig: {
+                thinkingBudget: 0
+            }
         }
     });
 
