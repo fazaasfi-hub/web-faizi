@@ -51,58 +51,19 @@ async function askGemini() {
         });
 
         if (!response.ok) {
-            const errData = await response.json();
-            throw new Error(errData.error?.message || `Gagal terhubung (${response.status})`);
-        }
-
-        // Cek apakah response benar-benar streaming (bukan error JSON)
-        const contentType = response.headers.get("content-type") || "";
-        if (!contentType.includes("text/event-stream")) {
             const errData = await response.json().catch(() => ({}));
-            throw new Error(errData.error || "API Key belum diset di server (cek Environment Variables Vercel).");
+            throw new Error(errData.error || `Gagal terhubung (${response.status})`);
         }
 
-        // Reset gaya bubble dari status "Mengetik..." ke tampilan pesan normal
+        // Baca JSON response dari backend (non-streaming)
+        const data = await response.json();
+        if (!data.text) {
+            throw new Error(data.error || "Gemini tidak memberikan jawaban.");
+        }
+
+        // Tampilkan jawaban
         botBubble.removeAttribute("style");
-        botBubble.innerHTML = `<b>Gemini AI:</b> `;
-
-        // Membaca stream data secara real-time
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder("utf-8");
-        let fullReply = "";
-        let buffer = "";
-
-        while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-
-            buffer += decoder.decode(value, { stream: true });
-            const lines = buffer.split("\n");
-            buffer = lines.pop(); // Simpan sisa potongan baris yang belum lengkap
-
-            for (const line of lines) {
-                if (line.startsWith("data: ")) {
-                    const jsonStr = line.slice(6).trim();
-                    if (!jsonStr) continue;
-                    try {
-                        const parsed = JSON.parse(jsonStr);
-                        // Cek kalau Gemini balik error (misal API key salah)
-                        if (parsed.error) {
-                            throw new Error(parsed.error.message || "Gemini menolak permintaan.");
-                        }
-                        const chunkText = parsed.candidates?.[0]?.content?.parts?.[0]?.text || "";
-                        if (chunkText) {
-                            fullReply += chunkText;
-                            botBubble.innerHTML = `<b>Gemini AI:</b> ${formatGeminiText(fullReply)}`;
-                            chatBox.scrollTop = chatBox.scrollHeight;
-                        }
-                    } catch (e) {
-                        if (e.message && !e.message.includes("JSON")) throw e;
-                        // Abaikan potongan JSON parsial
-                    }
-                }
-            }
-        }
+        botBubble.innerHTML = `<b>Gemini AI:</b> ${formatGeminiText(data.text)}`;
     } catch (error) {
         botBubble.style.color = "#dc2626";
         botBubble.style.fontSize = "13px";

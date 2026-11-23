@@ -7,10 +7,9 @@
 const https = require("https");
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_MODEL = "gemini-2.0-flash";
+const GEMINI_MODEL = "gemini-3.6-flash-lite";
 
 module.exports = async (req, res) => {
-    // Allow CORS
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -44,9 +43,10 @@ module.exports = async (req, res) => {
         }
     });
 
+    // Gunakan generateContent (non-streaming) — lebih stabil di Vercel serverless
     const options = {
         hostname: "generativelanguage.googleapis.com",
-        path: `/v1beta/models/${GEMINI_MODEL}:streamGenerateContent?alt=sse&key=${GEMINI_API_KEY}`,
+        path: `/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`,
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -54,22 +54,26 @@ module.exports = async (req, res) => {
         }
     };
 
-    // Set SSE headers
-    res.setHeader("Content-Type", "text/event-stream");
-    res.setHeader("Cache-Control", "no-cache");
-    res.setHeader("Connection", "keep-alive");
-
-    const geminiReq = https.request(options, (geminiRes) => {
-        geminiRes.on("data", (chunk) => res.write(chunk));
-        geminiRes.on("end", () => res.end());
+    const geminiRes = await new Promise((resolve, reject) => {
+        const geminiReq = https.request(options, resolve);
+        geminiReq.on("error", reject);
+        geminiReq.write(requestBody);
+        geminiReq.end();
     });
 
-    geminiReq.on("error", (err) => {
-        console.error("Gemini error:", err.message);
-        if (!res.headersSent) res.status(500).json({ error: "Gagal terhubung ke Gemini API." });
-        else res.end();
-    });
+    let rawData = "";
+    for await (const chunk of geminiRes) {
+        rawData += chunk;
+    }
 
-    geminiReq.write(requestBody);
-    geminiReq.end();
+    try {
+        const parsed = JSON.parse(rawData);
+        if (parsed.error) {
+            return res.status(500).json({ error: parsed.error.message || "Gemini API error." });
+        }
+        const text = parsed.candidates?.[0]?.content?.parts?.[0]?.text || "";
+        return res.status(200).json({ text });
+    } catch (e) {
+        return res.status(500).json({ error: "Gagal parse response dari Gemini." });
+    }
 };
