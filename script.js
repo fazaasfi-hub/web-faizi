@@ -55,6 +55,13 @@ async function askGemini() {
             throw new Error(errData.error?.message || `Gagal terhubung (${response.status})`);
         }
 
+        // Cek apakah response benar-benar streaming (bukan error JSON)
+        const contentType = response.headers.get("content-type") || "";
+        if (!contentType.includes("text/event-stream")) {
+            const errData = await response.json().catch(() => ({}));
+            throw new Error(errData.error || "API Key belum diset di server (cek Environment Variables Vercel).");
+        }
+
         // Reset gaya bubble dari status "Mengetik..." ke tampilan pesan normal
         botBubble.removeAttribute("style");
         botBubble.innerHTML = `<b>Gemini AI:</b> `;
@@ -79,6 +86,10 @@ async function askGemini() {
                     if (!jsonStr) continue;
                     try {
                         const parsed = JSON.parse(jsonStr);
+                        // Cek kalau Gemini balik error (misal API key salah)
+                        if (parsed.error) {
+                            throw new Error(parsed.error.message || "Gemini menolak permintaan.");
+                        }
                         const chunkText = parsed.candidates?.[0]?.content?.parts?.[0]?.text || "";
                         if (chunkText) {
                             fullReply += chunkText;
@@ -86,6 +97,7 @@ async function askGemini() {
                             chatBox.scrollTop = chatBox.scrollHeight;
                         }
                     } catch (e) {
+                        if (e.message && !e.message.includes("JSON")) throw e;
                         // Abaikan potongan JSON parsial
                     }
                 }
