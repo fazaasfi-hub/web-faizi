@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Map | Temukan Potensimu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">CAREER<span>MAP.</span></a>
+            <div class="nav-links">
+                <a href="#home">Beranda</a>
+                <a href="#about">Tentang</a>
+                <a href="#quiz">Tes Karier</a>
+                <a href="#careers">Eksplorasi Karier</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- BERANDA -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <p class="eyebrow">DISCOVER YOUR POTENTIAL</p>
+                <h1>Kenali Potensimu,<br>
+                    Temukan Arah <span>Masa Depanmu.</span>
+                </h1>
+                <p class="hero-description">
+                    Setiap orang memiliki potensi yang berbeda.
+                    Temukan minat, bakat, dan pilihan karier
+                    yang sesuai dengan dirimu bersama Career Map.
+                </p>
+            </div>
+
+            <div class="hero-card">
+                <div class="circle-decoration"></div>
+                <p class="card-label">YOUR JOURNEY STARTS HERE</p>
+                <div class="hero-number">01</div>
+                <h3>Explore Your Future</h3>
+                <p>Discover what makes you unique.</p>
+            </div>
+        </section>
+
+        <!-- TENTANG -->
+        <section class="about section" id="about">
+            <p class="eyebrow">ABOUT CAREER MAP</p>
+            <h2>Masa depan dimulai dari <span>mengenal diri sendiri.</span></h2>
+            <p class="section-description">
+                Career Map merupakan platform eksplorasi karier
+                yang membantu pelajar mengenali minat dan potensi
+                diri serta mendapatkan gambaran pilihan pendidikan
+                dan profesi di masa depan.
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span>01</span>
+                    <h3>Kenali Diri</h3>
+                    <p>Kenali minat, ketertarikan, dan kemampuanmu.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span>02</span>
+                    <h3>Temukan Potensi</h3>
+                    <p>Ketahui bidang yang sesuai dengan kecenderunganmu.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span>03</span>
+                    <h3>Rencanakan Masa Depan</h3>
+                    <p>Eksplorasi pilihan jurusan dan profesi.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TES KARIER -->
+        <section class="quiz-section section" id="quiz">
+            <p class="eyebrow">CAREER INTEREST TEST</p>
+            <h2>Temukan bidang yang <span>sesuai denganmu.</span></h2>
+                           <div id="resultBox" class="result-box" hidden>
+                <p class="eyebrow">YOUR CAREER RESULT</p>
+                <h2>Hasil Pemetaan Kariermu</h2>
+                <div class="result-category" id="resultCategory"></div>
+                <h3 id="resultTitle"></h3>
+                <p id="resultDescription"></p>
+
+                <h3>Rekomendasi Jurusan</h3>
+                <div id="majorResults" class="result-list"></div>
+
+                <h3>Rekomendasi Profesi</h3>
+                <div id="jobResults" class="result-list"></div>
+
+                <p class="disclaimer">
+                    Hasil ini merupakan gambaran awal berdasarkan jawabanmu, bukan penilaian psikologis atau penentu mutlak masa depan.
+                </p>
+
+                <button class="primary-button" onclick="restartQuiz()">Ulangi Tes ↻</button>
+            </div>
+        </section>
+
+        <!-- EKSPLORASI KARIER (CARD PROFESI LANGSUNG DI DALAM #careerGrid) -->
+        <section class="career-section section" id="careers">
+            <p class="eyebrow">CAREER EXPLORATION</p>
+            <h2>Jelajahi berbagai <span>pilihan profesi.</span></h2>
+            <p class="section-description">
+                Kenali berbagai profesi, bidang pekerjaan, dan jurusan yang dapat menjadi pilihanmu.
+            </p>
+
+            
+            <div class="career-grid" id="careerGrid">
+                <div class="career-card">
+                    <h4>TEKNOLOGI</h4>
+                    <h3>Software Engineer</h3>
+                    <p style="margin-bottom:10px; color:#475569; font-size:14px;">Merancang, menulis kode, menguji, dan memelihara aplikasi web, mobile, maupun sistem perangkat lunak skala besar agar berjalan cepat, aman, dan bebas bug.</p>
+                    <p style="margin-bottom:6px; color:#334155; font-size:13px;"><b>🛠 Keahlian:</b> Pemrograman, Problem Solving, Git, Database</p>
+                    <p style="margin-bottom:14px; color:#334155; font-size:13px;"><b>🏢 Prospek:</b> Startup Teknologi, Perbankan Digital, E-Commerce</p>
+                    <div class="tag">🎓 Teknik Informatika / Ilmu Komputer</div>
+                </div>
+
+                <div class="career-card">
+                    <h4>KESEHATAN</h4>
+                    <h3>Dokter Umum / Spesialis</h3>
+                    <p style="margin-bottom:10px; color:#475569; font-size:14px;">Melakukan pemeriksaan medis, mendiagnosis penyakit berdasarkan gejala dan hasil laboratorium, memberikan pengobatan, serta mengedukasi pasien tentang pencegahan penyakit.</p>
+                    <p style="margin-bottom:6px; color:#334155; font-size:13px;"><b>🛠 Keahlian:</b> Analisis Klinis, Empati Pasien, Ketelitian Tinggi</p>
+                    <p style="margin-bottom:14px; color:#334155; font-size:13px;"><b>🏢 Prospek:</b> Rumah Sakit, Klinik, Puskesmas, Praktik Mandiri</p>
+                    <div class="tag">🎓 Pendidikan Dokter (Profesi Dokter)</div>
+                </div>
+
+                <div class="career-card">
+                    <h4>SOSIAL & MENTAL</h4>
+                    <h3>Psikolog</h3>
+                    <p style="margin-bottom:10px; color:#475569; font-size:14px;">Melakukan asesmen psikologis, konseling, dan terapi untuk membantu individu maupun kelompok mengatasi masalah emosional, perilaku, serta pengembangan potensi diri.</p>
+                    <p style="margin-bottom:6px; color:#334155; font-size:13px;"><b>🛠 Keahlian:</b> Active Listening, Empati, Observasi Perilaku</p>
+                    <p style="margin-bottom:14px; color:#334155; font-size:13px;"><b>🏢 Prospek:</b> Biro Psikologi, Rumah Sakit, Sekolah, HRD Perusahaan</p>
+                    <div class="tag">🎓 Psikologi (Magister Profesi)</div>
+                </div>
+
+                <div class="career-card">
+                    <h4>KREATIF & DIGITAL</h4>
+                    <h3>UI/UX Designer</h3>
+                    <p style="margin-bottom:10px; color:#475569; font-size:14px;">Melakukan riset kebutuhan pengguna serta merancang tampilan antarmuka (UI) dan alur pengalaman (UX) aplikasi atau website agar mudah digunakan dan menarik secara visual.</p>
+                    <p style="margin-bottom:6px; color:#334155; font-size:13px;"><b>🛠 Keahlian:</b> Figma, Wireframing, User Research, Design Thinking</p>
+                    <p style="margin-bottom:14px; color:#334155; font-size:13px;"><b>🏢 Prospek:</b> Agensi Digital, Perusahaan Teknologi, Konsultan Produk</p>
+                    <div class="tag">🎓 DKV / Sistem Informasi</div>
+                </div>
+
+                <div class="career-card">
+                    <h4>BISNIS & KEUANGAN</h4>
+                    <h3>Financial Analyst</h3>
+                    <p style="margin-bottom:10px; color:#475569; font-size:14px;">Mengumpulkan dan menganalisis data keuangan, tren pasar, serta laporan laba rugi untuk membantu perusahaan atau investor mengambil keputusan bisnis yang tepat.</p>
+                    <p style="margin-bottom:6px; color:#334155; font-size:13px;"><b>🛠 Keahlian:</b> Analisis Data & Excel, Pemodelan Keuangan, Manajemen Risiko</p>
+                    <p style="margin-bottom:14px; color:#334155; font-size:13px;"><b>🏢 Prospek:</b> Perusahaan Sekuritas, Bank Investasi, Korporasi</p>
+                    <div class="tag">🎓 Akuntansi / Manajemen / Ekonomi</div>
+                </div>
+
+                <div class="career-card">
+                    <h4>HUKUM & PEMERINTAHAN</h4>
+                    <h3>Diplomat</h3>
+                    <p style="margin-bottom:10px; color:#475569; font-size:14px;">Mewakili dan melindungi kepentingan negara di luar negeri melalui negosiasi bilateral maupun multilateral, kerja sama ekonomi, serta perlindungan warga negara.</p>
+                    <p style="margin-bottom:6px; color:#334155; font-size:13px;"><b>🛠 Keahlian:</b> Negosiasi, Bahasa Asing, Public Speaking, Geopolitik</p>
+                    <p style="margin-bottom:14px; color:#334155; font-size:13px;"><b>🏢 Prospek:</b> Kementerian Luar Negeri, Kedutaan Besar, PBB / ASEAN</p>
+                    <div class="tag">🎓 Hubungan Internasional / Ilmu Hukum</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <h3>CAREER<span>MAP.</span></h3>
+        <p>Discover Your Potential, Shape Your Future.</p>
+        <p class="copyright">© 2026 Career Map. All Rights Reserved.</p>
+    </footer>
+
+    <!-- WIDGET CHATBOT GEMINI AI -->
+    <button id="ai-toggle" class="ai-toggle-btn" onclick="toggleAI()">
+        ✨ Konsultasi Karir AI
+    </button>
+
+    <div id="ai-box" class="ai-chat-box">
+        <div class="ai-header">
+            <span>Asisten Gemini Peta Karir</span>
+            <button onclick="toggleAI()" class="ai-close-btn">✕</button>
+        </div>
+
+        <div id="ai-messages" class="ai-messages">
+            <div class="ai-msg-bot">
+                <b>Gemini AI:</b> Halo! Bingung pilih jurusan kuliah atau prospek karir? Tanyakan saja!
+            </div>
+        </div>
+
+        <div class="ai-input-area">
+            <input id="ai-input" type="text" placeholder="Tanya soal jurusan/karir..." onkeypress="if(event.key==='Enter') askGemini()">
+            <button id="ai-send" onclick="askGemini()">Kirim</button>
+        </div>
+    </div>
+
+    <!-- script.js sudah menggunakan backend proxy, tidak perlu config.js -->
+    <script src="script.js"></script>
+</body>
+</html>
